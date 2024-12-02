@@ -4,22 +4,13 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 @Injectable()
 export class HttpClientService {
   async request(config: AxiosRequestConfig): Promise<{ response: AxiosResponse; duration: number }> {
-    const startTime = process.hrtime();
-    
+    const startTime = Date.now();
     try {
       const response = await axios(config);
-      const [seconds, nanoseconds] = process.hrtime(startTime);
-      const duration = seconds * 1000 + nanoseconds / 1000000; // Convert to milliseconds
-      
+      const duration = Date.now() - startTime;
       return { response, duration };
     } catch (error) {
-      const [seconds, nanoseconds] = process.hrtime(startTime);
-      const duration = seconds * 1000 + nanoseconds / 1000000;
-      
-      throw {
-        error,
-        duration,
-      };
+      throw error;
     }
   }
 }

@@ -1,0 +1,12 @@
+test_suite:
+  name: "API Performance Test Suite"
+  base_url: "https://api.example.com"
+  tests:
+    - name: "Get User Profile"
+      endpoint: "/users/profile"
+      method: "GET"
+      headers:
+        Authorization: "Bearer ${TOKEN}"
+      parallel_users: 10
+      iterations: 100
+      timeout: 30
